@@ -1,0 +1,65 @@
+/* to start React: nmp start*/
+
+*{
+  box-sizing: border-box;
+}
+
+.App {
+  
+  background: #3A1C71;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFAF7B, #D76D77, #3A1C71);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFAF7B, #D76D77, #3A1C71); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  height: 100vh;
+  text-align: center;
+}
+
+
+.header {
+  font-size: 50px;
+  background:rgba(255, 255, 255, .2);
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding: 20px 40px;
+  text-align: right;
+  border-bottom: 2px solid rgb(173, 169, 169) ;
+  /* Flex is a layout, can allow to change layout of elements */
+  display: flex; 
+  align-items: center; 
+  justify-content: flex-end;
+
+}
+  .logo {
+    height: 40px; 
+    margin-right: 24px; 
+  }
+
+  .text-input{
+    position: absolute;
+    bottom: 0;
+    height: 40px; 
+    width: 100%;
+    border-top: 1px  solid rgb(173, 169, 169);
+    color: white; 
+    display: flex; 
+    align-items: center;
+  }
+
+
+  .text-input input {
+    width: calc(100% - 50px);
+    height: 90%;
+    font-size: 24px;
+  }
+
+  .text-input button {
+    width: 50px;
+    height: 20%;
+    border-radius: 20px;
+  }
+
+  .text-input button:hover {
+    color: whitesmoke;
+
+  }
+  

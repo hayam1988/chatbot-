@@ -15,6 +15,7 @@
 
 
 .header {
+   
   font-size: 50px;
   background:rgba(255, 255, 255, .2);
   color: white;
@@ -33,6 +34,7 @@
     height: 40px; 
     margin-right: 24px; 
   }
+
   .text-input{
     position: absolute;
     bottom: 0;
@@ -43,6 +45,7 @@
     align-items: center;
     justify-content: center;
     background:rgba(255, 255, 255, .2);
+    
   }
 
 
@@ -57,35 +60,29 @@
     padding-left: 12px;
     padding-right: 28px;
     padding-bottom: 2px;
-    outline: none;
-
-   
+    box-shadow: 7px 3px 4px rgba(0, 0, 0, .5);
+    
     }
+
 
   .text-input button {
     position: absolute;
-    top: 10px;
+    top: 10.7px;
     right: 100px;
     width: 100px;
-    height: 50px; 
+    height: 48px; 
     border-style: solid;
     border-width: 1px;
     background-color: rgb(62, 62, 66);
     cursor: pointer;
     color: rgb(228, 178, 228);
-   
-
   }
 
   .text-input button:hover {
     background:rgb(145, 137, 137);
     color: rgba(255, 255, 255, 0.781);
   }
-/*
-  .send{
-    height: 20%;
-}
-*/
+
   .txtarea {
     height: 77%;
     width: 50%;
@@ -97,12 +94,53 @@
     width: 20px;
 }
 
-  .speech-bubble {
+  .text-input button[disabled] {
+    background:rgb(201, 192, 192) ;
+    color: rgb(184, 176, 176) ;
+    cursor: defualt; 
+  }
+
+  .bubble-wrap{
+    width:100%;
+    padding:8px 20px;
+    display:flex;
+    position: relative;
+  }
+  
+  .bubble-wrap[from="me"] {
+    flex-direction:row-reverse;
+  }
+  
+
+  .bubble-wrap[from="me"] .bubble:before{
+    left:auto;
+    right:-6px;
+    background-color: grey;
+  }
+
+  .bubble > span {
+    color:rgb(37, 34, 34);
+    position:relative;
+    z-index:101;
+  
+  }
+
+  .messages {
+    overflow: auto;
+    /*add padding and  */ 
+   padding: 5px 20px ;
+   height: 820px;
+   display: flex;
+   flex-direction: column-reverse;
+  }
+
+
+  .bubble {
     margin: 30px auto; /*spacing between each chat bubble*/
-    width: 30%;  
+    max-width: 20%; 
     border: 4px solid #313131;
-    border-radius: 6;
-    padding: 15px; /*the padding of the top and bottom*/
+    border-radius: 6px;
+    padding: 8px 12px; /*the padding of the top and bottom*/
     text-align: center;
     font-weight: 800;/*the thinkness of the font*/
     color: #303636;
@@ -113,8 +151,7 @@
     background-color: rgb(248, 247, 247);
   }
 
-
-   .speech-bubble .arrow {
+   .bubble:before {
     content: "";
     width: 0px;
     height: 0px;
@@ -127,7 +164,7 @@
     bottom: -23px;
   }
 
-  .speech-bubble .after {
+  .bubble:after {
     content: "";
     width: 0px;
     height: 0px;
@@ -141,6 +178,50 @@
   }
 
 
-  .text-input button [disabled] {
-    background: grey;
-  }
+.bubble-name{
+  position: absolute;
+  color: white;
+  top: -5px;
+  font-size:10px;
+  left: 30px;
+
+}
+
+.edit-username{
+  display: flex;
+  align-items: center;
+}
+
+.name-button{
+  height:px;
+  margin:0 6px;
+  background:transparent;
+  border:1px solid white;
+  color:white;
+  font-size:10px;
+  padding:7px;
+  cursor: pointer;
+}
+
+.name-button:hover{
+  background:rgba(255,255,255,0.1)
+}
+
+.name-input{
+  color:white;
+  height:31px;
+  border:1px solid white;
+  border-radius:14px;
+  padding-left:12px;
+  background:#1f1e2e;
+  padding-bottom:2px;
+  font-size:12px;
+}
+
+.username{
+  display: flex;
+  align-items: center;
+  margin-right:12px;
+  font-size:14px;
+
+}

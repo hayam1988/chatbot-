@@ -2,26 +2,50 @@ import React from 'react';
 import './App.css';
 import logo from './logo.png'
 import TextInput from './TextInput'
+import NamePicker from './NamePicker'
 
 class App extends React.Component {
   state = {
-    messages: []
+    messages: [],
+    name: '',
+    editName: false,
 
   }
 
-  sendMessage = (m) => {
-    var message = [...this.state.messages, m]
-    this.setState({ message })
+  gotMessage = (text) => {
+    var newMessageArray = [...this.state.messages, text]
+    this.setState({ messages: newMessageArray })
+  }
+
+  setEditName = (text) => {
+    var name = this.state.editName, text
+    this.setState({editName: name})
+
   }
 
   render() {
-    console.log(this.state.message)
+    /* destructoring */
+    var { messages } = this.state
+    console.log(messages)
     return (
       <div className="App">
         < header className="header">chatbot
-      <img src={logo} className="logo" alt="logo of chatbot" />
+        <img src={logo} className="logo" alt="logo of chatbot" />
+          <NamePicker editName = {this.name} />
         </header>
-        <TextInput sendMessage={this.sendMessage} />
+
+        <main className="messages">
+          {messages.map((m, i) => {
+            return (<div key={i} className="bubble-wrap">
+              <div className="bubble">
+                <span>{m}</span>
+              </div>
+            </div>)
+          })}
+        </main>
+
+
+        <TextInput sendMessage={this.gotMessage} />
       </div>
     );
 

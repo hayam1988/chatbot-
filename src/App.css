@@ -52,10 +52,10 @@
   .text-input input {
     /*width: calc(100% - 90px);*/
     width: 75%;
-    height: 50px;
+    height: 48px;
     font-size: 24px;
     background:rgba(243, 226, 226, 0.993);
-    border-width: 1px;
+    border-width: 0px;
     border-style: solid;
     padding-left: 12px;
     padding-right: 28px;
@@ -224,4 +224,16 @@
   margin-right:12px;
   font-size:14px;
 
+}
+
+.bubble-wrap > span{
+  font-size:13px;
+  color: rgb(77, 70, 70);
+  position: absolute;
+  left: 23px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 9px; 
+  letter-spacing: 0.5px;
+ 
 }

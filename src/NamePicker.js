@@ -1,5 +1,20 @@
+
+
 import React from 'react'
+
 import {FiEdit} from 'react-icons/fi'
+
+/*
+  changeName = (e) => {
+    this.setState({name: ""})
+    this.setState({name: e.target.value})
+  }
+
+  setEditName = () =>  {
+    this.setState({editName: this.state.editName})
+
+  }
+*/
 
 function NamePicker({ name, editName, changeName, setEditName }) {
   if (editName) {

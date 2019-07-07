@@ -12,14 +12,14 @@ class App extends React.Component {
 
   }
 
-  gotMessage = (text) => {
-    var newMessageArray = [...this.state.messages, text]
+  gotMessage = (m) => {
+    const message = {
+      text: m, 
+      from: this.state.name
+    }
+    
+    var newMessageArray = [message, ...this.state.messages]
     this.setState({ messages: newMessageArray })
-  }
-
-  setEditName = (text) => {
-    var name = this.state.editName, text
-    this.setState({editName: name})
 
   }
 
@@ -31,19 +31,22 @@ class App extends React.Component {
       <div className="App">
         < header className="header">chatbot
         <img src={logo} className="logo" alt="logo of chatbot" />
-          <NamePicker editName = {this.name} />
+          <NamePicker  changeName={name=>this.setState({name})}  name={this.state.name}
+          setEditName={editName => this.setState({editName})} editName = {this.state.editName}/>
+
         </header>
 
         <main className="messages">
           {messages.map((m, i) => {
             return (<div key={i} className="bubble-wrap">
+             
+             <span>{m.from}</span>
               <div className="bubble">
-                <span>{m}</span>
+                <span>{m.text}</span>
               </div>
-            </div>)
+              </div>)
           })}
         </main>
-
 
         <TextInput sendMessage={this.gotMessage} />
       </div>

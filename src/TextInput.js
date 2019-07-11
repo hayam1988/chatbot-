@@ -29,7 +29,7 @@ class TextInput extends React.Component {
              placeholder ="Write your message here..."
              onChange= {e=> this.setState({text: e.target.value})}
              />
-             <button disabled = { !this.state.text} onClick = {this.send}
+             <button disabled = {!this.state.text} onClick = {this.send}
             >
                 <IoMdSend style={{hieght: 25, width: 25}} />
              </button>

@@ -3,15 +3,19 @@ import './App.css';
 import logo from './logo.png'
 import TextInput from './TextInput'
 import NamePicker from './NamePicker'
+
 import * as firebase from "firebase/app"
 import "firebase/firestore"
 import "firebase/storage"
+
+import Camera from 'react-snap-pic'
 
 class App extends React.Component {
   state = {
     messages: [],
     name: '',
     editName: false,
+    showCamera:false
 
   }
 
@@ -22,7 +26,8 @@ class App extends React.Component {
       this.setState({name})
 
     }
-
+    
+ 
     /* <=========================> */
     firebase.initializeApp({
       apiKey: "AIzaSyDvOBznpA-mIpEqF_a0F93xhhevQy_S8MI",
@@ -81,6 +86,10 @@ class App extends React.Component {
         this.setState({editName})
   }
 
+  takePicture = (img) => {
+    console.log(img)
+    this.setState({showCamera:false})
+}
   render() {
     /* destructoring */
     var { messages, name, editName } = this.state
@@ -102,8 +111,6 @@ class App extends React.Component {
           {messages.map((m, i) => {
             return (<div key={i} className="bubble-wrap"
                 from={m.from ===name ? "me" : "you"} >
-              
-
               {m.from!== name && <span>{m.from}</span>}
               <div className="bubble">
                 <span>{m.text}</span>
@@ -112,10 +119,13 @@ class App extends React.Component {
           })}
         </main>
 
-        <TextInput sendMessage={text =>this.send({text})} />
+        <TextInput sendMessage={text =>this.send({text})} 
+        showCamera={()=>this.setState({showCamera:true})}
+         />
+         {this.state.showCamera && <Camera takePicture={this.takePicture} />}
       </div>
     );
-
+   
   }
 }
 export default App;

@@ -37,21 +37,29 @@ class App extends React.Component {
       storageBucket: "chatbot-d7c93.appspot.com",
     });
 
-
-
     this.db = firebase.firestore();
     this.db.collection("messages").onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
           //console.log(change.doc.data())
-          this.receive(change.doc.data())
+          this.receive({
+            ...change.doc.data(),
+            id: change.doc.id
+          })
+        }
+        if (change.type === 'removed') {
+          this.remove(change.doc.id)
         }
       })
     })
-
     /* <=========================> */
-  }
+  } //end of componentWillMount
 
+  remove = (id) => {
+    var msgs = [...this.state.messages]
+    var messages = msgs.filter(m => m.id !== id)
+    this.setState({ messages })
+  }
   /* <===========================> */
 
   receive = (m) => {
@@ -70,31 +78,15 @@ class App extends React.Component {
     })
   }
 
-  /* <===========================> */
-
-  /*
-
-  gotMessage = (m) => {
-
-    const message = {
-
-      text: m,
-
-      from: this.state.name
+  deleteMessage = (m) => {
+    var { name } = this.state
+    if (name === m.from || name === 'Ashley') {
+      this.db.collection('messages').doc(m.id).delete()
 
     }
-
-
-
-    var newMessageArray = [message, ...this.state.messages]
-
-    this.setState({ messages: newMessageArray })
-
-
-
   }
 
-*/
+  /* <===========================> */
 
   setEditName = (editName) => {
     if (!editName) {
@@ -109,12 +101,12 @@ class App extends React.Component {
   }
 
   takePicture = async (img) => {
-    this.setState({showCamera:false})
+    this.setState({ showCamera: false })
     const imgID = Math.random().toString(36).substring(7);
     var storageRef = firebase.storage().ref();
-    var ref = storageRef.child(imgID+'.jpg');
+    var ref = storageRef.child(imgID + '.jpg');
     await ref.putString(img, 'data_url')
-    this.send({img: imgID})
+    this.send({ img: imgID })
   }
 
   render() {
@@ -123,8 +115,11 @@ class App extends React.Component {
     console.log(messages)
     return (
       <Div100vh className="App">
-        < header className="header">chatbot
-        <img src={logo} className="logo" alt="logo of chatbot" />
+        < header className="header">
+          <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', justifyContent: 'flex-end' }}>
+            <img src={logo} className="logo" alt="logo of chatbot" />
+            {editName ? '' : 'chatbot'}
+          </div>
           <NamePicker
             changeName={name => this.setState({ name })}
             name={name}
@@ -134,25 +129,18 @@ class App extends React.Component {
         </header>
 
 
-
         <main className="messages">
           {messages.map((m, i) => {
-            return (<div key={i} className="bubble-wrap"
-              from={m.from === name ? "me" : "you"} >
-              {m.from !== name && <span>{m.from}</span>}
-              <div className="bubble">
-              <span>{m.text}</span>
-              {m.img && <img alt="pic" src={bucket+m.img+suffix} />}
-              </div>
-            </div>)
+            return <Messages key={i} m={m} name={name}
+              onClick={() => this.deleteMessage(m)}
+            />
           })}
-       </main>
-
+        </main>
         <TextInput sendMessage={text => this.send({ text })}
           showCamera={() => this.setState({ showCamera: true })}
         />
         {this.state.showCamera && <Camera takePicture={this.takePicture} />}
-        </Div100vh>
+      </Div100vh>
     );
   } // end of render() 
 } //end of app component 
@@ -161,3 +149,18 @@ export default App;
 
 const bucket = 'https://firebasestorage.googleapis.com/v0/b/chatbot-d7c93.appspot.com/o/'
 const suffix = '.jpg?alt=media'
+
+function Messages(props) {
+  var { m, name, onClick } = props
+  return (<div className="bubble-wrap"
+    from={m.from === name ? "me" : "you"}
+    onClick={onClick}
+  >
+    {m.from !== name && <span>{m.from}</span>}
+    <div className="bubble">
+      <span>{m.text}</span>
+      {m.img && <img alt="pic" src={bucket + m.img + suffix} />}
+    </div>
+  </div>)
+
+}

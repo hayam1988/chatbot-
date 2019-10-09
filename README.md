@@ -21,5 +21,5 @@ This is an application build with create-react-app and hosted by Firebase.
 
 ![myapp](chatapp2.png)
 ![myapp](chatapp3.png)
-![myapp](chatapp.png)
+
 
